@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import validator from 'validator';
 import {
   Guardian,
   LocalGuardian,
@@ -13,16 +14,26 @@ const studentNameSchema = new Schema<StudentName>({
     required: true,
     trim: true,
     maxlength: [20, "First name can't more then 15 character"],
-    validate: {
-      validator: function (value: string) {
-        const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
-        return firstNameStr === value;
-      },
-      message: '{VALUE} is not capitalized',
-    },
+    //build in validation /custom
+    // validate: {
+    //   validator: function (value: string) {
+    //     const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
+    //     return firstNameStr === value;
+    //   },
+    //   message: '{VALUE} is not capitalized',
+    // },
   },
   middleName: { type: String, trim: true },
-  lastName: { type: String, required: true, trim: true },
+  lastName: {
+    type: String,
+    required: true,
+    trim: true,
+    //npm validator
+    // validate: {
+    //   validator: (value: string) => validator.isAlpha(value),
+    //   message: '{VALUE} is not valid',
+    // },
+  },
 });
 //guardian schema
 const guardianSchema = new Schema<Guardian>({
@@ -51,6 +62,7 @@ const studentSchema = new Schema<Student>({
     required: [true, 'email must be required'],
     unique: true,
     trim: true,
+    validate: { validator: (value: string) => validator.isEmail(value) },
   },
   gender: {
     type: String,
