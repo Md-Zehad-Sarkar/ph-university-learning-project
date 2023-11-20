@@ -22,6 +22,7 @@ const LocalGuardian = z.object({
 
 const zodStudentSchema = z.object({
   id: z.string(),
+  password: z.string(),
   name: StudentName.required().refine(
     (data) => data.firstName || data.middleName || data.lastName,
     {
@@ -42,6 +43,7 @@ const zodStudentSchema = z.object({
   localGuardian: LocalGuardian,
   profileImage: z.string(),
   isActive: z.enum(['active', 'blocked']).default('active'),
+  isDeleted:z.boolean().default(false)
 });
 
 export default zodStudentSchema;

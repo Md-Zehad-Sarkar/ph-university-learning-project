@@ -21,7 +21,8 @@ export type TLocalGuardian = {
 
 export type TStudent = {
   id: string;
-  name: StudentName;
+  password: string;
+  name: TStudentName;
   email: string;
   gender: 'Male' | 'Female' | 'Others';
   dateOfBirth: string;
@@ -30,15 +31,21 @@ export type TStudent = {
   bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'O+' | 'O-' | 'AB+' | 'AB-';
   presentAddress: string;
   permanentAddress: string;
-  guardian: Guardian;
-  localGuardian: LocalGuardian;
+  guardian: TGuardian;
+  localGuardian: TLocalGuardian;
   profileImage?: string;
   isActive: 'active' | 'blocked';
+  isDeleted: boolean;
 };
-
-//student method
-export type StudentMethod = {
+//creating custom static
+export interface StudentModel extends Model<TStudent> {
   isUserExists(id: string): Promise<TStudent | null>;
-};
+}
 
-export type StudentModel = Model<TStudent, Record<string, never>, StudentMethod>;
+// for creating instance
+// //student method
+// export type StudentMethod = {
+//   isUserExists(id: string): Promise<TStudent | null>;
+// };
+
+// export type StudentModel = Model<TStudent, Record<string, never>, StudentMethod>;

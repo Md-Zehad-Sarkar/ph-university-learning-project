@@ -9,8 +9,8 @@ app.use(cors());
 
 //application route
 app.use('/api/v1/student', studentRoutes);
-app.use('/api/v1/student', studentRoutes);
-app.use('/api/v1/student', studentRoutes);
+// app.use('/api/v1/student', studentRoutes);
+// app.use('/api/v1/student', studentRoutes);
 
 const getStudent = (req: Request, res: Response) => {
   res.send('hello world');
