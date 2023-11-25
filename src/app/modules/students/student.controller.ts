@@ -1,32 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
-import { studentServices } from './student.service';
+import { studentServices } from './student.services';
 import zodStudentSchema from './student.zod.validation';
 
-// import joiStudentSchema from './student.joi.validation';//for joi validate
+
 
 const createStudent = async (req: Request, res: Response) => {
   try {
-    //normal way
     const { student: studentData } = req.body;
-    // const result = await studentServices.createStudentIntoDB(studentData);
-    //
+
     //zod validation schema
     const zodParseData = zodStudentSchema.parse(studentData);
     const result = await studentServices.createStudentIntoDB(zodParseData);
-
-    //  // implement joi schema validation
-    // const { error, value } = joiStudentSchema.validate(studentData);
-    // console.log(error, value);
-    // will call from service // send validation data by joi
-    // const result = await studentServices.createStudentIntoDB(value);
-    // //.........for joy validation................
-    // if (error) {
-    //   res.status(500).json({
-    //     success: false,
-    //     message: 'something went wrong',
-    //     error: error.details,
-    //   });
-    // }
 
     //send response
     res.status(200).json({
@@ -34,7 +19,6 @@ const createStudent = async (req: Request, res: Response) => {
       message: 'Student is created successfully',
       data: result,
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     res.status(500).json({
       success: false,
@@ -53,7 +37,6 @@ const getAllStudents = async (req: Request, res: Response) => {
       message: 'students are retrieved successfully',
       data: result,
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     res.status(500).json({
       success: false,
@@ -73,7 +56,6 @@ const getSingleStudent = async (req: Request, res: Response) => {
       message: 'single students are retrieved successfully',
       data: result,
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     res.status(500).json({
       success: false,
@@ -92,7 +74,7 @@ const deleteStudent = async (req: Request, res: Response) => {
       message: 'student has deleted successfully',
       data: deleted,
     });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   } catch (error: any) {
     res.status(500).json({
       success: false,

@@ -17,25 +17,12 @@ const studentNameSchema = new Schema<TStudentName>({
     required: true,
     trim: true,
     maxlength: [20, "First name can't more then 15 character"],
-    //build in validation /custom
-    // validate: {
-    //   validator: function (value: string) {
-    //     const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1);
-    //     return firstNameStr === value;
-    //   },
-    //   message: '{VALUE} is not capitalized',
-    // },
   },
   middleName: { type: String, trim: true },
   lastName: {
     type: String,
     required: true,
     trim: true,
-    //npm validator
-    // validate: {
-    //   validator: (value: string) => validator.isAlpha(value),
-    //   message: '{VALUE} is not valid',
-    // },
   },
 });
 //guardian schema
@@ -155,11 +142,4 @@ studentSchema.statics.isUserExists = async function (id: string) {
   return existingUser;
 };
 
-// create custom instance method
-// studentSchema.methods.isUserExists = async function (id: string) {
-//   const existingUser = Student.findOne({ id: id });
-//   return existingUser;
-// };
-
 export const Student = model<TStudent, StudentModel>('Student', studentSchema);
-// export const StudentModel = model<TStudent>('Student', studentSchema);

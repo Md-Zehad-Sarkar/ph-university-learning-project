@@ -1,6 +1,6 @@
-import { Aggregate } from 'mongoose';
-import { Student } from '../studentsModel/students.model';
-import { TStudent } from './students.interface';
+import { TStudent } from "./students.interface";
+import { Student } from "./students.model";
+
 
 //create a student
 const createStudentIntoDB = async (studentData: TStudent) => {
@@ -10,14 +10,6 @@ const createStudentIntoDB = async (studentData: TStudent) => {
   }
   const result = await Student.create(studentData); //built in static method
   return result;
-
-  //for custom instance
-  // const student = new Student(studentData); //create an instance
-  // if (await student.isUserExists(studentData.id)) {
-  //   throw new Error('user already exist');
-  // }
-  // const result = await student.save(); //built in instance method
-  // return result;
 };
 
 //get a student
