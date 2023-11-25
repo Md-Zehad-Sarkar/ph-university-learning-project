@@ -7,8 +7,6 @@ import {
   TStudent,
   TStudentName,
 } from '../students/students.interface';
-import bcrypt from 'bcrypt';
-import config from '../../config';
 
 //student name schema
 const studentNameSchema = new Schema<TStudentName>({
@@ -43,11 +41,14 @@ const localGuardianSchema = new Schema<TLocalGuardian>({
 //students Schema
 const studentSchema = new Schema<TStudent, StudentModel>(
   {
-    id: { type: String, required: true, unique: true },
-    password: {
-      type: String,
-      required: [true, 'password required'],
+    id: { type: String, required: [true, 'Id is required'], unique: true },
+    user: {
+      type: Schema.Types.ObjectId,
+      required: [true, 'User Id is required'],
+      unique: true,
+      ref: 'User',
     },
+
     name: {
       type: studentNameSchema,
       required: [true, 'name must be required'],
@@ -87,7 +88,6 @@ const studentSchema = new Schema<TStudent, StudentModel>(
     guardian: guardianSchema,
     localGuardian: localGuardianSchema,
     profileImage: { type: String },
-    isActive: { type: String, enum: ['active', 'blocked'], default: 'active' },
     isDeleted: { type: Boolean, default: false },
   },
   {
@@ -96,28 +96,12 @@ const studentSchema = new Schema<TStudent, StudentModel>(
     },
   },
 );
-//middleware or hooks (pre)
-studentSchema.pre('save', async function (next) {
-  // console.log(this, 'pre hooks:this will be save data');
-  const user = this;
-  user.password = await bcrypt.hash(
-    user.password,
-    Number(config.bcrypt_round_salt),
-  );
-  next();
-});
 
 //virtual middleware
 studentSchema.virtual('fullName').get(function () {
   return (
     this.name.firstName + ' ' + this.name.middleName + ' ' + this.name.lastName
   );
-});
-
-//middleware or hooks (post)
-studentSchema.post('save', function (doc, next) {
-  doc.password = '';
-  next();
 });
 
 //query middleware
