@@ -64,5 +64,4 @@ const joiStudentSchema = Joi.object({
   isActive: Joi.string().valid('active', 'blocked').default('active'),
 });
 
-//end of joi schema
 export default joiStudentSchema;
