@@ -23,18 +23,20 @@ const addressValidationSchema = z.object({
   city: z.string(),
 });
 
-export const studentValidationSchema = z.object({
+export const createStudentValidationSchema = z.object({
   body: z.object({
-    id: z.string(),
-    name: studentNameValidationSchema.required(),
-    email: z.string(),
-    contactNo: z.string(),
-    emergencyContactNo: z.string(),
-    dateOfBirth: z.string(),
-    address: addressValidationSchema,
-    guardian: guardianValidationSchema,
-    localGuardian: localGuardianValidationSchema,
-    bloodGroup: z.string().optional(),
-    profileImg: z.string().optional(),
+    password: z.string().optional(),
+    student: z.object({
+      name: studentNameValidationSchema.required(),
+      email: z.string(),
+      contactNo: z.string(),
+      emergencyContactNo: z.string(),
+      dateOfBirth: z.string(),
+      address: addressValidationSchema,
+      guardian: guardianValidationSchema,
+      localGuardian: localGuardianValidationSchema,
+      bloodGroup: z.string().optional(),
+      profileImg: z.string().optional(),
+    }),
   }),
 });

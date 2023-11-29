@@ -4,6 +4,7 @@ import { Student } from '../student/student.model';
 import { TUser } from './user.interface';
 import { User } from './user.model';
 
+//create student user
 const createUserIntoDB = async (password: string, studentData: TStudent) => {
   const userData: Partial<TUser> = {};
 
