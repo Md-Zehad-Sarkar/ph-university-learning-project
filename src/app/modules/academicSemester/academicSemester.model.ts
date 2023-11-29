@@ -1,11 +1,10 @@
 import { Schema, model } from 'mongoose';
+import { TAcademicSemester } from './academicSemester.interface';
 import {
-  TAcademicSemester,
- 
-} from './academicSemester.interface';
-import { AcademicSemesterCodeSchema, AcademicSemesterMonthsSchema, AcademicSemesterNameSchema } from './academicSemester.constant';
-
-
+  AcademicSemesterCodeSchema,
+  AcademicSemesterMonthsSchema,
+  AcademicSemesterNameSchema,
+} from './academicSemester.constant';
 
 const academicSemesterSchema = new Schema<TAcademicSemester>({
   name: { type: String, enum: AcademicSemesterNameSchema, required: true },
@@ -21,6 +20,18 @@ const academicSemesterSchema = new Schema<TAcademicSemester>({
     enum: AcademicSemesterMonthsSchema,
     required: true,
   },
+});
+
+//checking semester name and year before save on database .if name and year are same then throw error
+academicSemesterSchema.pre('save', async function (next) {
+  const existing = await AcademicSemester.findOne({
+    name: this.name,
+    year: this.year,
+  });
+  if (existing) {
+    throw new Error('semester and code already exist');
+  }
+  next();
 });
 
 export const AcademicSemester = model<TAcademicSemester>(
