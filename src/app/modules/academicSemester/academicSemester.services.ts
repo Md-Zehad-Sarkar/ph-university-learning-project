@@ -29,7 +29,7 @@ const updateAcademicSemesterFromDB = async (
   id: string,
   payload: Partial<TAcademicSemester>,
 ) => {
-  const updateSemester = await AcademicSemester.findByIdAndUpdate( id , payload, {
+  const updateSemester = await AcademicSemester.findByIdAndUpdate( {_id:id} , payload, {
     new: true,
   });
   return updateSemester;

@@ -37,6 +37,7 @@ export type TStudent = {
   localGuardian: TLocalGuardian;
   bloodGroup?: string;
   profileImg?: string;
+  admissionSemester: Types.ObjectId;
 };
 
 //static method type

@@ -37,6 +37,7 @@ export const createStudentValidationSchema = z.object({
       localGuardian: localGuardianValidationSchema,
       bloodGroup: z.string().optional(),
       profileImg: z.string().optional(),
+      admissionSemester: z.string(),
     }),
   }),
 });

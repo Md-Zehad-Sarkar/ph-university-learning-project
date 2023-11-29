@@ -34,6 +34,7 @@ const TAddressSchema = new Schema({
 });
 
 const studentSchema = new Schema<TStudent, StudentModel>({
+  id: { type: String, unique: true, required: true },
   user: { type: Schema.Types.ObjectId, unique: true, ref: 'User' },
   name: { type: TStudentNameSchema, required: [true, 'Name is required'] },
   email: { type: String, required: true, unique: true },
@@ -44,6 +45,7 @@ const studentSchema = new Schema<TStudent, StudentModel>({
   localGuardian: { type: TLocalGuardianSchema, required: true },
   bloodGroup: { type: String },
   profileImg: { type: String },
+  admissionSemester: { type: Schema.Types.ObjectId },
 });
 
 studentSchema.statics.isUserExists = async function (id: string) {
