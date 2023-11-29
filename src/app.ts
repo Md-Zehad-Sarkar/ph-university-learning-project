@@ -1,27 +1,25 @@
-import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
+import express, { Application, Request, Response } from 'express';
+import { globalErrorHandler } from './app/middlewares/global.error.handler';
+import { router } from './app/routes/index.routes';
+import { notFound } from './app/middlewares/notFound';
 
-import { globalErrorHandler } from './app/middleware/globalErrorHandler';
-import { router } from './app/routes';
-import { notFound } from './app/middleware/notFound';
 const app: Application = express();
 
+//parsers
 app.use(express.json());
 app.use(cors());
 
-//application route
+// application routes
 app.use('/api/v1', router);
 
-//
-const getStudent = (req: Request, res: Response) => {
-  res.send('PH - UNIVERSITY');
+const test = (req: Request, res: Response) => {
+  res.send('Practice PH-U');
 };
 
-app.get('/', getStudent);
-//error handler middleware
+app.get('/', test);
+
 app.use(globalErrorHandler);
-//not found
 app.use(notFound);
 
-//
 export default app;
