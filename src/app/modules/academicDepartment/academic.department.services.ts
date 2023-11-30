@@ -9,13 +9,14 @@ const createAcademicDepartmentIntoDB = async (payload: TAcademicDepartment) => {
 
 //get all academic department
 const getAllAcademicDepartmentFromDB = async () => {
-  const result = await AcademicDepartment.find();
+  const result = await AcademicDepartment.find().populate('academicFaculty'); //we use populate for view referencing data info other wise we can see only refer id
   return result;
 };
 
 //get single academic department
 const getSingleAcademicDepartmentFromDB = async (id: string) => {
-  const result = await AcademicDepartment.findById(id);
+  const result =
+    await AcademicDepartment.findById(id).populate('academicFaculty');
   return result;
 };
 
@@ -24,7 +25,11 @@ const updateAcademicDepartmentIntoDB = async (
   id: string,
   payload: TAcademicDepartment,
 ) => {
-  const result = await AcademicDepartment.findByIdAndUpdate({_id:id},payload,{new:true});
+  const result = await AcademicDepartment.findByIdAndUpdate(
+    { _id: id },
+    payload,
+    { new: true },
+  );
   return result;
 };
 

@@ -53,6 +53,11 @@ const studentSchema = new Schema<TStudent, StudentModel>(
     bloodGroup: { type: String },
     profileImg: { type: String },
     admissionSemester: { type: Schema.Types.ObjectId, ref: 'AcademicSemester' },
+    isDeleted: { type: Boolean },
+    academicDepartment: {
+      type: Schema.Types.ObjectId,
+      ref: 'AcademicDepartment',
+    },
   },
   { timestamps: true },
 );

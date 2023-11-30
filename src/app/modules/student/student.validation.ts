@@ -40,6 +40,8 @@ export const createStudentValidationSchema = z.object({
       bloodGroup: z.string().optional(),
       profileImg: z.string().optional(),
       admissionSemester: z.string().optional(),
+      isDeleted: z.boolean(),
+      academicDepartment: z.string(),
     }),
   }),
 });

@@ -32,13 +32,15 @@ export type TStudent = {
   contactNo: string;
   emergencyContactNo: string;
   dateOfBirth: string;
-  gender: "Male" | "Female" | "Others";
+  gender: 'Male' | 'Female' | 'Others';
   address: TAddress;
   guardian: TGuardian;
   localGuardian: TLocalGuardian;
   bloodGroup?: string;
   profileImg?: string;
   admissionSemester: Types.ObjectId;
+  isDeleted: boolean;
+  academicDepartment: Types.ObjectId;
 };
 
 //static method type
