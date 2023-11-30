@@ -23,7 +23,7 @@ const getAllAcademicDepartment = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Academic department retrieved successfully',
+    message: 'All Academic department retrieved successfully',
     data: result,
   });
 });
@@ -38,7 +38,7 @@ const getSingleAcademicDepartment = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Academic department retrieved successfully',
+    message: 'Single Academic department retrieved successfully',
     data: result,
   });
 });
@@ -55,7 +55,7 @@ const updateAcademicDepartment = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Academic department retrieved successfully',
+    message: 'Academic department update successfully',
     data: result,
   });
 });

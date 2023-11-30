@@ -33,20 +33,29 @@ const TAddressSchema = new Schema({
   city: String,
 });
 
-const studentSchema = new Schema<TStudent, StudentModel>({
-  id: { type: String, unique: true, required: true },
-  user: { type: Schema.Types.ObjectId, unique: true, ref: 'User' },
-  name: { type: TStudentNameSchema, required: [true, 'Name is required'] },
-  email: { type: String, required: true, unique: true },
-  contactNo: { type: String, required: true },
-  emergencyContactNo: { type: String, required: true },
-  address: { type: TAddressSchema, required: true },
-  guardian: { type: TGuardianSchema, required: true },
-  localGuardian: { type: TLocalGuardianSchema, required: true },
-  bloodGroup: { type: String },
-  profileImg: { type: String },
-  admissionSemester: { type: Schema.Types.ObjectId },
-});
+const studentSchema = new Schema<TStudent, StudentModel>(
+  {
+    id: { type: String, unique: true, required: true },
+    user: { type: Schema.Types.ObjectId, unique: true, ref: 'User' },
+    name: { type: TStudentNameSchema, required: [true, 'Name is required'] },
+    email: { type: String, required: true, unique: true },
+    contactNo: { type: String, required: true },
+    emergencyContactNo: { type: String, required: true },
+    dateOfBirth: { type: String },
+    gender: {
+      type: String,
+      enum: ['Male', 'Female', 'Others'],
+      required: true,
+    },
+    address: { type: TAddressSchema, required: true },
+    guardian: { type: TGuardianSchema, required: true },
+    localGuardian: { type: TLocalGuardianSchema, required: true },
+    bloodGroup: { type: String },
+    profileImg: { type: String },
+    admissionSemester: { type: Schema.Types.ObjectId, ref: 'AcademicSemester' },
+  },
+  { timestamps: true },
+);
 
 studentSchema.statics.isUserExists = async function (id: string) {
   const existingStudent = await this.findOne({ id });

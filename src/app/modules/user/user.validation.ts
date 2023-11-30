@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const userValidation = z.object({
+export const userValidationSchema = z.object({
   password: z
     .string()
     .max(12, 'password can not more then 12 character')

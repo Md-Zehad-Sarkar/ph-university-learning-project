@@ -24,7 +24,7 @@ const updateAcademicDepartmentIntoDB = async (
   id: string,
   payload: TAcademicDepartment,
 ) => {
-  const result = await AcademicDepartment.findById({_id:id},payload,{new:true});
+  const result = await AcademicDepartment.findByIdAndUpdate({_id:id},payload,{new:true});
   return result;
 };
 

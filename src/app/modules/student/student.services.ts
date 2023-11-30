@@ -1,3 +1,4 @@
+import { TStudent } from './student.interface';
 import { Student } from './student.model';
 
 //get all student
@@ -16,6 +17,19 @@ const getSingleStudentFromDB = async (id: string) => {
   return result;
 };
 
+//update single student
+const updateStudentFromDB = async (id: string, payload: TStudent) => {
+  const result = await Student.findOneAndUpdate({ id: id }, payload, {
+    new: true,
+  }).select({ password: 0 });
+
+  //if id not found send this error message
+  if (!result) {
+    throw new Error(`Single student can not update with this id ${id}`);
+  }
+  return result;
+};
+
 // delete student
 const deleteStudentFromDB = async (id: string) => {
   const student = await Student.deleteOne({ id: id });
@@ -30,6 +44,7 @@ const deleteAllStudentFromDB = async () => {
 export const studentServices = {
   getAllStudentFromDB,
   getSingleStudentFromDB,
+  updateStudentFromDB,
   deleteStudentFromDB,
   deleteAllStudentFromDB,
 };

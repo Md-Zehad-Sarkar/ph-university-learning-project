@@ -20,6 +20,7 @@ export const createAcademicSemesterValidationSchema = z.object({
     ]),
   }),
 });
+
 export const updateAcademicSemesterValidationSchema = z.object({
   body: z.object({
     name: z

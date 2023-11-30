@@ -23,6 +23,7 @@ const addressValidationSchema = z.object({
   city: z.string(),
 });
 
+// student validation schema
 export const createStudentValidationSchema = z.object({
   body: z.object({
     password: z.string().optional(),
@@ -32,12 +33,34 @@ export const createStudentValidationSchema = z.object({
       contactNo: z.string(),
       emergencyContactNo: z.string(),
       dateOfBirth: z.string(),
+      gender: z.enum(['Male', 'Female', 'Others']),
       address: addressValidationSchema,
       guardian: guardianValidationSchema,
       localGuardian: localGuardianValidationSchema,
       bloodGroup: z.string().optional(),
       profileImg: z.string().optional(),
-      admissionSemester: z.string(),
+      admissionSemester: z.string().optional(),
+    }),
+  }),
+});
+
+//update validation schema
+export const updateStudentValidationSchema = z.object({
+  body: z.object({
+    password: z.string().optional(),
+    student: z.object({
+      name: studentNameValidationSchema.required().optional(),
+      email: z.string().optional(),
+      contactNo: z.string().optional(),
+      emergencyContactNo: z.string().optional(),
+      dateOfBirth: z.string().optional(),
+      gender: z.enum(['Male', 'Female', 'Others']).optional(),
+      address: addressValidationSchema.optional(),
+      guardian: guardianValidationSchema.optional(),
+      localGuardian: localGuardianValidationSchema.optional(),
+      bloodGroup: z.string().optional(),
+      profileImg: z.string().optional(),
+      admissionSemester: z.string().optional(),
     }),
   }),
 });
