@@ -1,23 +1,23 @@
 import { z } from 'zod';
 
-const studentNameValidationSchema = z.object({
+const createStudentNameValidationSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
 });
 
-const guardianValidationSchema = z.object({
+const createGuardianValidationSchema = z.object({
   fatherName: z.string(),
   motherName: z.string(),
   contactNo: z.string(),
 });
 
-const localGuardianValidationSchema = z.object({
+const createLocalGuardianValidationSchema = z.object({
   localGuardianName: z.string(),
   contactNo: z.string(),
   address: z.string(),
 });
 
-const addressValidationSchema = z.object({
+const createAddressValidationSchema = z.object({
   presentAddress: z.string(),
   permanentAddress: z.string(),
   city: z.string(),
@@ -28,15 +28,15 @@ export const createStudentValidationSchema = z.object({
   body: z.object({
     password: z.string().optional(),
     student: z.object({
-      name: studentNameValidationSchema.required(),
+      name: createStudentNameValidationSchema.required(),
       email: z.string(),
       contactNo: z.string(),
       emergencyContactNo: z.string(),
       dateOfBirth: z.string(),
       gender: z.enum(['Male', 'Female', 'Others']),
-      address: addressValidationSchema,
-      guardian: guardianValidationSchema,
-      localGuardian: localGuardianValidationSchema,
+      address: createAddressValidationSchema,
+      guardian: createGuardianValidationSchema,
+      localGuardian: createLocalGuardianValidationSchema,
       bloodGroup: z.string().optional(),
       profileImg: z.string().optional(),
       admissionSemester: z.string().optional(),
@@ -46,23 +46,48 @@ export const createStudentValidationSchema = z.object({
   }),
 });
 
-//update validation schema
+//update student validation schema
+const updateStudentNameValidationSchema = z.object({
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
+});
+
+const updateGuardianValidationSchema = z.object({
+  fatherName: z.string().optional(),
+  motherName: z.string().optional(),
+  contactNo: z.string().optional(),
+});
+
+const updateLocalGuardianValidationSchema = z.object({
+  localGuardianName: z.string().optional(),
+  contactNo: z.string().optional(),
+  address: z.string().optional(),
+});
+
+const updateAddressValidationSchema = z.object({
+  presentAddress: z.string().optional(),
+  permanentAddress: z.string().optional(),
+  city: z.string().optional(),
+});
+
 export const updateStudentValidationSchema = z.object({
   body: z.object({
     password: z.string().optional(),
     student: z.object({
-      name: studentNameValidationSchema.required().optional(),
+      name: updateStudentNameValidationSchema.optional(),
       email: z.string().optional(),
       contactNo: z.string().optional(),
       emergencyContactNo: z.string().optional(),
       dateOfBirth: z.string().optional(),
       gender: z.enum(['Male', 'Female', 'Others']).optional(),
-      address: addressValidationSchema.optional(),
-      guardian: guardianValidationSchema.optional(),
-      localGuardian: localGuardianValidationSchema.optional(),
+      address: updateAddressValidationSchema.optional(),
+      guardian: updateGuardianValidationSchema.optional(),
+      localGuardian: updateLocalGuardianValidationSchema.optional(),
       bloodGroup: z.string().optional(),
       profileImg: z.string().optional(),
-      admissionSemester: z.string().optional(),
+      admissionSemester: z.string().optional().optional(),
+      isDeleted: z.boolean().optional(),
+      academicDepartment: z.string().optional(),
     }),
   }),
 });

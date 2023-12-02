@@ -6,15 +6,18 @@ const router = express.Router();
 
 router.get('/', studentController.getAllStudent); //get all student
 
-router.get('/:id', studentController.getSingleStudent); //get single student
+router.get('/:studentId', studentController.getSingleStudent); //get single student
 
 router.patch(
-  '/:id',
+  '/:studentId',
   validateRequest(updateStudentValidationSchema),
   studentController.updateStudent,
 ); //update single student
 
-router.delete('/:id', studentController.deleteSingleStudent); //delete single student
+router.patch(
+  '/delete-single/:studentId',
+  studentController.deleteSingleStudent,
+); //delete single student (update isDeleted:false field)
 
 router.delete('/', studentController.deleteAllStudent); //delete all student
 
