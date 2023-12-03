@@ -14,6 +14,7 @@ app.use(cors());
 app.use('/api/v1', router);
 
 const test = (req: Request, res: Response) => {
+  Promise.reject();
   res.send('Practice PH-U');
 };
 
