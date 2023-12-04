@@ -59,8 +59,17 @@ const studentSchema = new Schema<TStudent, StudentModel>(
       ref: 'AcademicDepartment',
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    // toJSON: {
+    //   virtuals: true,
+    // },
+  },
 );
+
+// studentSchema.virtual('fullName').get(function () {
+//   return this?.name?.firstName + ' ' + this?.name?.lastName;
+// });
 
 studentSchema.statics.isUserExists = async function (id: string) {
   const existingStudent = await this.findOne({ id });
