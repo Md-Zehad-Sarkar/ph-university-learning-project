@@ -2,7 +2,7 @@ import express from 'express';
 import { courseControllers } from './course.controller';
 import { validateRequest } from '../../middlewares/validateRequest';
 import {
-  assignFacultiesWithCourseValidationSchema,
+  facultiesWithCourseValidationSchema,
   createCourseValidationSchema,
   updateCourseValidationSchema,
 } from './course.validation';
@@ -28,8 +28,15 @@ router.patch(
 //put route for course faculties
 router.put(
   '/:courseId/assign-faculties',
-  validateRequest(assignFacultiesWithCourseValidationSchema),
+  validateRequest(facultiesWithCourseValidationSchema),
   courseControllers.assignFacultiesWithCourse,
+);
+
+//remove faculty
+router.delete(
+  '/:courseId/remove-faculties',
+  validateRequest(facultiesWithCourseValidationSchema),
+  courseControllers.removeFacultiesWithCourse,
 );
 
 //delete-update operation route
